@@ -36,7 +36,7 @@ I created directories /etc/logstash and /var/log/logstash on the vagrant instanc
 
 /etc/central.conf:
 
-# This file should be copied to /etc/logstash
+#This file should be copied to /etc/logstash
 
 input {
 
@@ -125,7 +125,7 @@ node.name: "precise64"
 
  shipper.conf
 
- # configuration file for remote host to ship events to the central server
+ #configuration file for remote host to ship events to the central server
 
  input {
 
@@ -160,7 +160,7 @@ node.name: "precise64"
 
    }
 
- }`
+ }
 
  I changed the type to apache and the path to the apache log files so I can see events triggered from my local apaches web server.  To see this, go to any local website and click on links, load pages, etc and it should ship the event.
 
