@@ -88,8 +88,8 @@ ElasticSearch
 - I created a yaml file called elasticsearch.yml which currently resides in the same directory as the logstash jar file.
 - This is an elasticsearch configuration file.
 
-`cluster.name: logstash
- node.name: "precise64"`
+`cluster.name: logstash`
+ `node.name: "precise64"`
 
 - The node name is the server's name.
 
