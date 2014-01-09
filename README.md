@@ -36,7 +36,7 @@ I created directories /etc/logstash and /var/log/logstash on the vagrant instanc
 
 /etc/central.conf:
 
-#This file should be copied to /etc/logstash
+`#This file should be copied to /etc/logstash`
 
 input {
 
@@ -125,7 +125,7 @@ node.name: "precise64"
 
  shipper.conf
 
- #configuration file for remote host to ship events to the central server
+ `#configuration file for remote host to ship events to the central server`
 
  input {
 
