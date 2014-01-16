@@ -99,9 +99,9 @@ output {
 
 }
 
-- The book provides an [logstash init script] (http://logstashbook.com/code/3/logstash-central-init) running logstash as a service the central server.
-
-This file has been included in the repository
+- The book provides an [logstash init script for Ubuntu] (http://logstashbook.com/code/3/logstash-central-init) running logstash as a service the central server.
+- [init script for Centos] (http://logstashbook.com/code/3/logstash-central.init)
+This files has been included in the repository
 
 ElasticSearch
 =============
@@ -169,5 +169,6 @@ node.name: "precise64"
 
  Note you have to specify the configuration file and log file in a similar fashion as on the central server (the vagrant instance).  There is an alternative to this which is specified. Check chapter “Shipping events”
 
- [init script for running logstash as a service] (http://logstashbook.com/code/3/logstash-agent-init)
- This file has been included in the repository
+ [init script for running logstash as a service on Ubuntu] (http://logstashbook.com/code/3/logstash-agent-init)
+ [init script for running logstash as a service on Centos] (http://logstashbook.com/code/3/logstash-agent.init)
+ This files has been included in the repository
