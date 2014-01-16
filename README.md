@@ -169,6 +169,85 @@ node.name: "precise64"
 
  Note you have to specify the configuration file and log file in a similar fashion as on the central server (the vagrant instance).  There is an alternative to this which is specified. Check chapter “Shipping events”
 
- [init script for running logstash as a service on Ubuntu] (http://logstashbook.com/code/3/logstash-agent-init)
- [init script for running logstash as a service on Centos] (http://logstashbook.com/code/3/logstash-agent.init)
- This files has been included in the repository
+- [init script for running logstash as a service on Ubuntu] (http://logstashbook.com/code/3/logstash-agent-init)
+-  [init script for running logstash as a service on Centos] (http://logstashbook.com/code/3/logstash-agent.init)
+- This files has been included in the repository
+
+Installing logstash and drupal syslog module running on shipper vagrant instance on blackangus
+==============================================================================================
+
+Pre-Installation
+----------------
+
+- `sudo su - jenkins`
+- `ln -s dosomething-vagrant dosomething-qa`
+- `cd dosomething-qa/`
+- `vagrant status` (Check if vagrant is running)
+- `vagrant ssh`
+- `cd /vagrant/html` (Move to Drupal directory)
+- `sudo -h` (super user)
+
+Enable syslog module
+--------------------
+
+- `drush pm-list | grep log` (check if syslog module is enabled)
+- `drush pm-enable syslog` (enable module)
+
+Install Logstash
+----------------
+
+- `mkdir /opt/logstash`
+- `cd /opt/logstash`
+
+
+- Get logstash: `wget https://download.elasticsearch.org/logstash/logstash/logstash-1.3.2-flatjar.jar -O logstash.jar`
+
+- `cd /etc/init.d`
+- Install agent init script for Ubuntu: `wget http://logstashbook.com/code/3/logstash-agent-init -O logstash-agent`
+
+- `chmod 755 /etc/init.d/logstash-agent`
+- `chown root:root /etc/init.d/logstash-agent`
+- `update-rc.d logstash-agent enable`
+
+- `mkdir /etc/logstash`
+- `touch /etc/logstash/shipper.conf`
+- `vim shipper.conf`
+
+Insert into shipper.conf
+
+input {
+
+  file {
+
+    type => "syslog"
+
+    path => ["/var/log/syslog*"]
+
+    exclude => ["*.gz"]
+
+  }
+
+}
+
+output {
+
+  stdout { codec => rubydebug }
+
+  redis {
+
+    host => "blackangus.dosomething.org"
+
+    port => 9379
+
+    data_type => "list"
+
+    key => "logstash"
+
+  }
+
+}
+
+Start logstash
+--------------
+
+- `/etc/init.d/logstash-agent start`
